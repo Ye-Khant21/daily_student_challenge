@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Challenge;
 
 
 #[Fillable(['name', 'email', 'password'])]
@@ -34,5 +35,9 @@ class User extends Authenticatable
     public function challenges()
     {
         return $this->hasMany(Challenge::class, 'created_by');
+    }
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(Submission::class);
     }
 }
