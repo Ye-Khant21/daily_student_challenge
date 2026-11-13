@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
 {
     //
-    public function store(Request $request, \App\Models\Challenge $challenge)
+
+    public function store(Request $request, Challenge $challenge)
     {
         abort_unless(
             $challenge->is_published
@@ -22,6 +24,7 @@ class SubmissionController extends Controller
             'answer' => $validated['answer'],
             'challenge_id' => $challenge->id,
         ]);
+
         return redirect()->route('home')->with('success', 'Submission created successfully.');
     }
 }

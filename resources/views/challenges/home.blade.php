@@ -11,6 +11,9 @@
     <h1>Daily Student Challenge</h1>
     @auth
     <p>Welcome, {{ auth()->user()->name }}!</p>
+    @can('access-admin')
+    <a href="{{ route('admin.submissions.index') }}">Admin dashboard</a>
+    @endcan
 
     <form method="POST" action="{{ route('logout') }}">
         @csrf
