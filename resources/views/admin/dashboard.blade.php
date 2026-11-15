@@ -2,6 +2,7 @@
 <a href="{{ route('home') }}">Back to home</a>
 <a href="{{ route('admin.challenges.create') }}">Create daily challenge</a>
 
+<a href="{{ route('admin.challenges.index') }}">Manage challenges</a>
 <h2>Student submissions</h2>
 
 @if (session('success'))

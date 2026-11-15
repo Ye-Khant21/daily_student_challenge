@@ -33,4 +33,9 @@ Route::middleware(['auth', 'can:access-admin'])
         Route::patch('submissions/{submission}/approve', [AdminSubmissionController::class, 'approve'])->name('admin.submissions.approve');
         Route::get('/challenges/create', [AdminChallengeController::class, 'create'])->name('admin.challenges.create');
         Route::post('/challenges', [AdminChallengeController::class, 'store'])->name('admin.challenges.store');
+        Route::get('/challenges', [AdminChallengeController::class, 'index'])->name('admin.challenges.index');
+        Route::get('/challenges/{challenge}/edit', [AdminChallengeController::class, 'edit'])->name('admin.challenges.edit');
+
+        Route::patch('/challenges/{challenge}', [AdminChallengeController::class, 'update'])
+            ->name('admin.challenges.update');
     });
