@@ -1,58 +1,61 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Daily Student Challenge
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel practice project where students answer one challenge per day and get feedback from an admin. I built it to practice authentication, role-based access, relational data, and server-rendered interfaces.
 
-## About Laravel
+## What you can do
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Student:** Register, sign in, submit one answer to today's published challenge, and browse past challenges. The student dashboard shows pending reviews, scores, feedback, and total points.
+- **Admin:** Create one challenge per date, manage drafts and published challenges, and review answers. Scores range from zero to the challenge's maximum points.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Stack:** Laravel 13, PHP, Blade, CSS, and MySQL.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Run locally
 
-## Learning Laravel
+You'll need PHP 8.4 or later, Composer, and a running MySQL server. The Blade pages load their stylesheet directly, so there's no frontend build step.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```sh
+git clone https://github.com/Ye-Khant21/daily_student_challenge.git
+cd daily_student_challenge
+composer install
+cp .env.example .env
+php artisan key:generate
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Create an empty MySQL database named `daily_student_challenge`. Set these values in your local `.env`, using your own MySQL username and password.
 
-## Contributing
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=daily_student_challenge
+DB_USERNAME=your_mysql_user
+DB_PASSWORD=your_mysql_password
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```sh
+php artisan migrate
+php artisan db:seed --class=ChallengeSeeder
+php artisan serve
+```
 
-## Code of Conduct
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The seeder creates today's sample challenge and fills in missing dates from the previous five days. Challenge dates follow the app's `Asia/Kolkata` timezone.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Try the review workflow
 
-## Security Vulnerabilities
+1. Register two local accounts, one for the student and one for the admin.
+2. Promote your test admin in Tinker. Replace the email below with the exact email you registered for that account.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```sh
+   php artisan tinker
+   ```
 
-## License
+   ```php
+   $admin = \App\Models\User::where('email', 'admin@example.com')->firstOrFail();
+   $admin->role = 'admin';
+   $admin->save();
+   exit
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Sign in as the student, submit an answer to today's challenge, and open **My submissions** to see it awaiting review.
+4. Sign in as the admin, open **Admin**, and award points and feedback.
+5. Return to **My submissions** as the student to see the review and updated total.
