@@ -1,10 +1,11 @@
+@extends('layouts.app')
+
+@section('title', 'Create daily challenge')
+
+@section('content')
 <h1>Create daily challenge</h1>
 
-@foreach ($errors->all() as $error)
-<p>{{ $error }}</p>
-@endforeach
-
-<form method="POST" action="{{ route('admin.challenges.store') }}">
+<form class="panel" method="POST" action="{{ route('admin.challenges.store') }}">
     @csrf
 
     <p>
@@ -43,3 +44,4 @@
 </form>
 
 <a href="{{ route('admin.submissions.index') }}">Back to admin dashboard</a>
+@endsection

@@ -1,23 +1,20 @@
+@extends('layouts.app')
+
+@section('title', 'Admin dashboard')
+
+@section('content')
 <h1>Admin Dashboard</h1>
-<a href="{{ route('home') }}">Back to home</a>
-<a href="{{ route('admin.challenges.create') }}">Create daily challenge</a>
-
-<a href="{{ route('admin.challenges.index') }}">Manage challenges</a>
+<div class="actions admin-actions">
+    <a class="button" href="{{ route('admin.challenges.create') }}">Create daily challenge</a>
+    <a class="button secondary" href="{{ route('admin.challenges.index') }}">Manage challenges</a>
+</div>
 <h2>Student submissions</h2>
-
-@if (session('success'))
-<p>{{ session('success') }}</p>
-@endif
-
-@foreach ($errors->all() as $error)
-<p>{{ $error }}</p>
-@endforeach
 
 @forelse ($submissions as $submission)
 <article>
     <h3>{{ $submission->challenge->title }}</h3>
     <p>Student: {{ $submission->user->name }}</p>
-    <p>{{ $submission->answer }}</p>
+    <p class="prose">{{ $submission->answer }}</p>
 
     @if ($submission->reviewed_at === null)
     <p>Awaiting review</p>
@@ -43,9 +40,9 @@
     @endif
     @endif
 </article>
-<hr>
 @empty
 <p>No submissions yet.</p>
 @endforelse
 
-{{ $submissions->links() }}
+{{ $submissions->links('layouts.pagination') }}
+@endsection

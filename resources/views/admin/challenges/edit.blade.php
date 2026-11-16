@@ -1,10 +1,11 @@
+@extends('layouts.app')
+
+@section('title', 'Edit challenge')
+
+@section('content')
 <h1>Edit {{ $challenge->title }}</h1>
 
-@foreach ($errors->all() as $error)
-<p>{{ $error }}</p>
-@endforeach
-
-<form method="POST" action="{{ route('admin.challenges.update', $challenge) }}">
+<form class="panel" method="POST" action="{{ route('admin.challenges.update', $challenge) }}">
     @csrf
     @method('PATCH')
 
@@ -47,3 +48,4 @@
 </form>
 
 <a href="{{ route('admin.challenges.index') }}">Back to challenges</a>
+@endsection

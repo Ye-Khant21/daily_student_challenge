@@ -1,38 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Log in</title>
-</head>
+@section('title', 'Log in')
 
-<body>
-    <h1>Log in</h1>
+@section('page-class', 'account-page')
 
-    @foreach ($errors->all() as $error)
-    <p>{{ $error }}</p>
-    @endforeach
+@section('content')
+<h1>Log in</h1>
 
-    <form method="POST" action="{{ route('login.store') }}">
-        @csrf
+<form class="panel" method="POST" action="{{ route('login.store') }}">
+    @csrf
 
-        <p>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email"
-                value="{{ old('email') }}" autocomplete="username" required>
-        </p>
+    <p>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email"
+            value="{{ old('email') }}" autocomplete="username" required>
+    </p>
 
-        <p>
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password"
-                autocomplete="current-password" required>
-        </p>
+    <p>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password"
+            autocomplete="current-password" required>
+    </p>
 
-        <button type="submit">Log in</button>
-    </form>
+    <button type="submit">Log in</button>
+</form>
 
-    <p><a href="{{ route('register') }}">Create an account</a></p>
-</body>
-
-</html>
+<p><a href="{{ route('register') }}">Create an account</a></p>
+@endsection

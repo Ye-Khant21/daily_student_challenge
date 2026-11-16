@@ -7,9 +7,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', [ChallengeController::class, 'index'])->name('home');
 Route::get('/challenges/history', [ChallengeController::class, 'history'])->name('challenges.history');
+Route::get('/dashboard', [StudentController::class, 'index'])->name('student.dashboard')->middleware('auth');
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'create'])

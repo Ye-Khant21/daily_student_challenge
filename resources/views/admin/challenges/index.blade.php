@@ -1,14 +1,15 @@
+@extends('layouts.app')
+
+@section('title', 'Manage challenges')
+
+@section('content')
 <div>
     <h1>Manage challenges</h1>
 
     <a href="{{ route('admin.submissions.index') }}">Back to admin dashboard</a>
     <a href="{{ route('admin.challenges.create') }}">Create daily challenge</a>
 
-    @if (session('success'))
-    <p>{{ session('success') }}</p>
-    @endif
-
-    <ul>
+    <ul class="challenge-list">
         @forelse ($challenges as $challenge)
         <li>
             {{ $challenge->challenge_date }} — {{ $challenge->title }}
@@ -20,5 +21,6 @@
         @endforelse
     </ul>
 
-    {{ $challenges->links() }}
+    {{ $challenges->links('layouts.pagination') }}
 </div>
+@endsection

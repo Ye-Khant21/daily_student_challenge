@@ -1,55 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
+@section('title', 'Register')
 
-<body>
-    <h1>Create your student account</h1>
+@section('page-class', 'account-page')
 
-    @if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-    @endif
+@section('content')
+<h1>Create your student account</h1>
 
-    <form method="POST" action="{{ route('register.store') }}">
-        @csrf
+<form class="panel" method="POST" action="{{ route('register.store') }}">
+    @csrf
 
-        <p>
-            <label for="name">Name</label><br>
-            <input id="name" name="name" type="text"
-                value="{{ old('name') }}" required>
-        </p>
+    <p>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text"
+            value="{{ old('name') }}" required>
+    </p>
 
-        <p>
-            <label for="email">Email</label><br>
-            <input id="email" name="email" type="email"
-                value="{{ old('email') }}" required>
-        </p>
+    <p>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email"
+            value="{{ old('email') }}" required>
+    </p>
 
-        <p>
-            <label for="password">Password</label><br>
-            <input id="password" name="password" type="password"
-                minlength="8" required>
-        </p>
+    <p>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password"
+            minlength="8" required>
+    </p>
 
-        <p>
-            <label for="password_confirmation">Confirm password</label><br>
-            <input id="password_confirmation"
-                name="password_confirmation"
-                type="password" required>
-        </p>
+    <p>
+        <label for="password_confirmation">Confirm password</label>
+        <input id="password_confirmation"
+            name="password_confirmation"
+            type="password" required>
+    </p>
 
-        <button type="submit">Register</button>
-    </form>
-
-    <p><a href="{{ route('home') }}">Back to home</a></p>
-</body>
-
-</html>
+    <button type="submit">Register</button>
+</form>
+@endsection
