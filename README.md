@@ -9,6 +9,18 @@ A Laravel practice project where students answer one challenge per day and get f
 
 **Stack:** Laravel 13, PHP, Blade, CSS, and MySQL.
 
+## Screenshots
+
+The screenshots use fictional demo accounts and submissions.
+
+| Today's challenge | Student dashboard | Admin review |
+| --- | --- | --- |
+| [![Daily challenge and answer form](docs/screenshots/today.png)](docs/screenshots/today.png) | [![Student dashboard with total points, score, and feedback](docs/screenshots/student.png)](docs/screenshots/student.png) | [![Admin dashboard with a pending answer and review form](docs/screenshots/admin.png)](docs/screenshots/admin.png) |
+
+## Automated checks
+
+[GitHub Actions](https://github.com/Ye-Khant21/daily_student_challenge/actions/workflows/tests.yml) runs the PHPUnit suite on pushes and pull requests using an in-memory SQLite database. Run the same suite locally with `vendor/bin/phpunit`.
+
 ## Run locally
 
 You'll need PHP 8.4 or later, Composer, and a running MySQL server. The Blade pages load their stylesheet directly, so there's no frontend build step.
